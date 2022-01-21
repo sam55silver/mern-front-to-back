@@ -1,7 +1,19 @@
 const express = require("express");
+const { connect } = require("mongoose");
+const connectDB = require("./config/db");
+
 const app = express();
 
-app.get("/", (req, res) => res.send("Ay yo take me out to dinner?"));
+// Connect to Database
+connectDB();
+
+app.get("/", (req, res) => res.send("Main page"));
+
+// Define Routes
+app.use("/api/users", require("./routes/api/users"));
+app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/posts", require("./routes/api/posts"));
+app.use("/api/profile", require("./routes/api/profile"));
 
 const PORT = process.env.PORT || 5000;
 
